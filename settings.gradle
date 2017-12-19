@@ -1,0 +1,6 @@
+rootProject.name = 'uDash'
+include 'ServiceRegistrationServer'
+include 'Services'
+include 'Services:LeaveAMessage'
+findProject(':Services:LeaveAMessage')?.name = 'LeaveAMessage'
+
