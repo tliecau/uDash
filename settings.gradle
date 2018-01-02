@@ -3,4 +3,8 @@ include 'ServiceRegistrationServer'
 include 'Services'
 include 'Services:LeaveAMessage'
 findProject(':Services:LeaveAMessage')?.name = 'LeaveAMessage'
+include 'Services:WidgetsAggregator'
+findProject(':Services:WidgetsAggregator')?.name = 'WidgetsAggregator'
+include 'Services:Utils'
+findProject(':Services:Utils')?.name = 'Utils'
 

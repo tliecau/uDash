@@ -1,4 +1,4 @@
-package com.uDash.LeaveAMessage.Controlers;
+package com.uDash.LeaveAMessage.Controllers;
 
 import com.uDash.LeaveAMessage.Entities.Message;
 import com.uDash.LeaveAMessage.Services.MessageService;
@@ -13,11 +13,11 @@ import java.util.Collection;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
-public class MessageControler {
+public class MessageController {
     private final MessageService messageService;
 
     @Autowired
-    public MessageControler(MessageService messageRepository) {
+    public MessageController(MessageService messageRepository) {
         this.messageService = messageRepository;
     }
 
