@@ -10,6 +10,6 @@ import java.util.Collection;
 public interface MessageService {
     void save(Message message);
     void deleteById(Long messageId) throws MessageNotFoundException;
-    Message getMessageById(Long messageId);
+    Message getMessageById(Long messageId) throws MessageNotFoundException;
     Collection<Message> allMessages();
 }

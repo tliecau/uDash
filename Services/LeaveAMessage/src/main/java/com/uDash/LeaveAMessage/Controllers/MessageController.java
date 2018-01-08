@@ -20,7 +20,7 @@ public class MessageController {
     }
 
     @RequestMapping("/messages/{messageId}")
-    Message getMessage(@PathVariable Long messageId) {
+    Message getMessage(@PathVariable Long messageId) throws MessageNotFoundException {
         Message messageById = messageService.getMessageById(messageId);
         return messageById;
     }

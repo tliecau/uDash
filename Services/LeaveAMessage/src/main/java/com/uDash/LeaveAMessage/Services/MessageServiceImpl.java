@@ -34,8 +34,12 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     @Transactional
-    public Message getMessageById(Long messageId) {
-        return messageRepository.getById(messageId);
+    public Message getMessageById(Long messageId) throws MessageNotFoundException {
+        Message message = messageRepository.getById(messageId);
+        if (message == null) {
+            throw new MessageNotFoundException();
+        }
+        return message;
     }
 
     @Override

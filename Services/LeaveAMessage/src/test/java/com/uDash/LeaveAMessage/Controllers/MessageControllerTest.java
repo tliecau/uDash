@@ -43,7 +43,16 @@ public class MessageControllerTest {
                 .andExpect(jsonPath("author", is("testAuthor")))
                 .andExpect(jsonPath("message", is("Lorem ipsum")));
 
-        //https://www.petrikainulainen.net/programming/spring-framework/unit-testing-of-spring-mvc-controllers-rest-api/
+        verify(messageService, times(1)).getMessageById(Long.valueOf(1));
+        verifyNoMoreInteractions(messageService);
+    }
+
+    @Test
+    public void getNotExistingMessage() throws Exception {
+        when(messageService.getMessageById(Long.valueOf(1))).thenThrow(new MessageNotFoundException());
+        mockMvc.perform(get("/messages/1"))
+                .andExpect(status().isNotFound());
+
         verify(messageService, times(1)).getMessageById(Long.valueOf(1));
         verifyNoMoreInteractions(messageService);
     }
@@ -70,7 +79,7 @@ public class MessageControllerTest {
         verify(messageService, times(1)).deleteById(Long.valueOf(2));
     }
 
-    private Message prepareMessage(Long id) {
+    private Message prepareMessage(Long id) throws MessageNotFoundException {
         Message message = new Message();
         message.setId(id);
         message.setAuthor("testAuthor");
