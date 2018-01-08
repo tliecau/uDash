@@ -1,16 +1,14 @@
 package com.uDash.LeaveAMessage.Controllers;
 
 import com.uDash.LeaveAMessage.Entities.Message;
+import com.uDash.LeaveAMessage.Services.Exceptions.MessageNotFoundException;
 import com.uDash.LeaveAMessage.Services.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-import java.util.Collection;
-
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 
 @RestController
 public class MessageController {
@@ -21,13 +19,14 @@ public class MessageController {
         this.messageService = messageRepository;
     }
 
-    @RequestMapping("/messages")
-    Collection<Message> messages() {
-        return messageService.allMessages();
+    @RequestMapping("/messages/{messageId}")
+    Message getMessage(@PathVariable Long messageId) {
+        Message messageById = messageService.getMessageById(messageId);
+        return messageById;
     }
 
-    @RequestMapping(method = POST, value = "/messages")
-    void addMessage(@RequestBody @Valid Message message) {
-        messageService.save(message);
+    @RequestMapping(method = DELETE, value = "/messages/{messageId}")
+    void deleteMessage(@PathVariable Long messageId) throws MessageNotFoundException {
+        messageService.deleteById(messageId);
     }
 }

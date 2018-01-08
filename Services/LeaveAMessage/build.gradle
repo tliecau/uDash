@@ -34,6 +34,7 @@ dependencies {
     compile 'org.postgresql:postgresql:42.1.4'
     compile("org.projectlombok:lombok:1.16.18")
     compile project(":Services:Utils")
+    testCompile("org.springframework.boot:spring-boot-starter-test")
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
