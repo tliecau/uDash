@@ -6,8 +6,10 @@ import com.uDash.LeaveAMessage.Services.Exceptions.MessageNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.inject.Named;
 import java.util.Collection;
 
+@Named("MessageServiceImpl")
 public class MessageServiceImpl implements MessageService {
 
     private final MessageRepository messageRepository;
