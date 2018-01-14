@@ -1,0 +1,13 @@
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# build module
+out/*
+src/main/resources/static/*

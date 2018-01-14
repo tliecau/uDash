@@ -7,4 +7,8 @@ include 'Services:WidgetsAggregator'
 findProject(':Services:WidgetsAggregator')?.name = 'WidgetsAggregator'
 include 'Services:Utils'
 findProject(':Services:Utils')?.name = 'Utils'
+include 'Services:DesktopApi'
+findProject(':Services:DesktopApi')?.name = 'DesktopApi'
+include 'Services:DesktopApp'
+findProject(':Services:DesktopApp')?.name = 'DesktopApp'
 
