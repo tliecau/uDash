@@ -14,5 +14,4 @@ public class WidgetInfoController {
         widget.setEntryPoint("/messages");
         return widget;
     }
-
 }

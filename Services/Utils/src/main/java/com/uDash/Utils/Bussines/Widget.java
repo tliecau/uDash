@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class Widget {
-    String name;
-    String description;
-    String entryPoint;
+    private String name;
+    private String description;
+    private String entryPoint;
 }
