@@ -1,6 +1,6 @@
 package com.uDash.WidgetsAggregator.Controllers;
 
-import com.uDash.Utils.Bussines.Widget;
+import com.uDash.Utils.Bussines.WidgetComponent;
 import com.uDash.WidgetsAggregator.Services.WidgetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
@@ -30,8 +30,8 @@ public class ServiceCollector {
         return this.discoveryClient.getServices();
     }
 
-    @RequestMapping("/widgets")
-    public List<Widget> getWidgets() {
-        return widgetService.collectWidgets();
+    @RequestMapping("/widgetComponents")
+    public List<WidgetComponent> getWidgets() {
+        return widgetService.collectWidgetComponents();
     }
 }

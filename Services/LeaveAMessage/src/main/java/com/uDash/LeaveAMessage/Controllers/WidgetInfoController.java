@@ -1,17 +1,17 @@
 package com.uDash.LeaveAMessage.Controllers;
 
-import com.uDash.Utils.Bussines.Widget;
+import com.uDash.Utils.Bussines.WidgetComponent;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class WidgetInfoController {
     @RequestMapping("/widgetInfo")
-    Widget getWidgets() {
-        Widget widget = new Widget();
-        widget.setName("Leave a message");
-        widget.setDescription("Leave a message service");
-        widget.setEntryPoint("/messages");
-        return widget;
+    WidgetComponent getWidgets() {
+        WidgetComponent widgetComponent = new WidgetComponent();
+        widgetComponent.setName("Text Service");
+        widgetComponent.setDescription("Place text or text collection in your widgetComponent.");
+        widgetComponent.setEntryPoint("/messages");
+        return widgetComponent;
     }
 }

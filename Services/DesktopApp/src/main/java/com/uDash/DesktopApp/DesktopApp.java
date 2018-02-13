@@ -1,14 +1,11 @@
 package com.uDash.DesktopApp;
 
-import com.uDash.DesktopApp.Services.WidgetService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @SpringBootApplication
 @EnableDiscoveryClient
@@ -30,8 +27,8 @@ public class DesktopApp {
      * Account service calls microservice internally using provided URL.
      */
 //    @Bean
-//    public WidgetService accountsService() {
-//        return new WidgetService(ACCOUNTS_SERVICE_URL);
+//    public WidgetComponentsService accountsService() {
+//        return new WidgetComponentsService(ACCOUNTS_SERVICE_URL);
 //    }
 
 //

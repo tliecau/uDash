@@ -1,6 +1,6 @@
 package com.uDash.WidgetsAggregator.Services;
 
-import com.uDash.Utils.Bussines.Widget;
+import com.uDash.Utils.Bussines.WidgetComponent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.stereotype.Service;
@@ -18,41 +18,41 @@ public class WidgetService {
     @Autowired
     private RestTemplate restTemplate;
 
-    public List<Widget> collectWidgets() {
+    public List<WidgetComponent> collectWidgetComponents() {
         List<String> services = this.discoveryClient.getServices();
-        List<String> widgetsUris = getWidgetsUris(services);
+        List<String> widgetComponentsUris = getWidgetComponentsUris(services);
 
-        return getWidgetsFromUri(widgetsUris);
+        return getWidgetComponentFromUri(widgetComponentsUris);
     }
 
-    private List<Widget> getWidgetsFromUri(List<String> widgetsUris) {
-        List<Widget> widgets = new ArrayList<>();
-        for (String widgetUri: widgetsUris) {
+    private List<WidgetComponent> getWidgetComponentFromUri(List<String> widgetComponentsUris) {
+        List<WidgetComponent> widgetComponents = new ArrayList<>();
+        for (String widgetUri: widgetComponentsUris) {
             try {
-                widgets.add(getWidgetsFromUri(widgetUri));
+                widgetComponents.add(getWidgetComponentFromUri(widgetUri));
             } catch (WidgetNotFoundException e) {
                 e.printStackTrace();
                 //TODO : logThis
             }
         }
-        return widgets;
+        return widgetComponents;
     }
 
-    private Widget getWidgetsFromUri(String widgetUri) throws WidgetNotFoundException {
-        Widget widget = restTemplate.getForObject(widgetUri
-                + "/widgetInfo", Widget.class);
+    private WidgetComponent getWidgetComponentFromUri(String widgetUri) throws WidgetNotFoundException {
+        WidgetComponent widgetComponent = restTemplate.getForObject(widgetUri
+                + "/widgetInfo", WidgetComponent.class);
 
-        if (widget == null) {
+        if (widgetComponent == null) {
             throw new WidgetNotFoundException();
         }
 
-         return widget;
+         return widgetComponent;
     }
 
-    private List<String> getWidgetsUris(List<String> services) {
+    private List<String> getWidgetComponentsUris(List<String> services) {
         return services.stream()
                 .map(service -> this.discoveryClient.getInstances(service).stream().findFirst().get())
-                .filter(serviceInstance -> serviceInstance.getMetadata().get("type").equals("widget"))
+                .filter(serviceInstance -> serviceInstance.getMetadata().get("type").equals("widgetComponent"))
                 .map(serviceInstance -> serviceInstance.getUri().toString())
                 .collect(Collectors.toList());
     }

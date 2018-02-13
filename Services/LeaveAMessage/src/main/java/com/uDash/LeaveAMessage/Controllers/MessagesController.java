@@ -37,13 +37,5 @@ public class MessagesController {
         messageService.save(message);
     }
 
-    @RequestMapping(method = OPTIONS, value = "/messages")
-    ResponseEntity getMessagesOptions(HttpServletResponse response) {
-        response.setHeader("Allow", "HEAD,GET,PUT,OPTIONS"); //TODO Automate this
-        return new ResponseEntity(HttpStatus.OK);
-    }
-
-
     //TODO Add paging
-
 }
