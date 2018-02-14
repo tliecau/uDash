@@ -46,7 +46,7 @@ public class WidgetService {
             throw new WidgetNotFoundException();
         }
 
-         return widgetComponent;
+        return widgetComponent;
     }
 
     private List<String> getWidgetComponentsUris(List<String> services) {

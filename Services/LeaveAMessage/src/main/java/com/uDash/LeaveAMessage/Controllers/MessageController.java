@@ -12,12 +12,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 
 @RestController
 public class MessageController {
-    private final MessageService messageService;
-
     @Autowired
-    public MessageController(MessageService messageRepository) {
-        this.messageService = messageRepository;
-    }
+    private MessageService messageService;
 
     @RequestMapping("/messages/{messageId}")
     Message getMessage(@PathVariable Long messageId) throws MessageNotFoundException {

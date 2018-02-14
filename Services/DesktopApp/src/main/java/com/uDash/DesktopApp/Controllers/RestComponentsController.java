@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api") // TODO: move this to parent class
+@RequestMapping("/api")
 public class RestComponentsController {
     @Autowired
     WidgetComponentsService widgetComponentsService;

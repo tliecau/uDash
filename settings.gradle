@@ -11,4 +11,6 @@ include 'Services:DesktopApi'
 findProject(':Services:DesktopApi')?.name = 'DesktopApi'
 include 'Services:DesktopApp'
 findProject(':Services:DesktopApp')?.name = 'DesktopApp'
+include 'Services:Widget'
+findProject(':Services:Widget')?.name = 'Widget'
 

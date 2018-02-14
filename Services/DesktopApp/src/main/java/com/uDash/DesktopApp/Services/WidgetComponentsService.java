@@ -14,15 +14,14 @@ public class WidgetComponentsService {
 
     @Autowired
     @LoadBalanced
-    protected RestTemplate restTemplate;
-    private String serviceUrl;
+    private RestTemplate restTemplate;
 
-    public WidgetComponentsService() {
-        this.serviceUrl = "http://AGGREGATOR-SERVICE";
-    }
+    private static String SERVICE_URL = "http://AGGREGATOR-SERVICE/widgetComponents";
+
+    public WidgetComponentsService() {}
 
     public WidgetComponent getByNumber(int accountNumber) {
-        ResponseEntity<WidgetComponent[]> response = restTemplate.getForEntity( "http://AGGREGATOR-SERVICE/widgetComponents", WidgetComponent[].class);
+        ResponseEntity<WidgetComponent[]> response = restTemplate.getForEntity( SERVICE_URL, WidgetComponent[].class);
 
         return Arrays.asList(response.getBody()).get(accountNumber);
     }
