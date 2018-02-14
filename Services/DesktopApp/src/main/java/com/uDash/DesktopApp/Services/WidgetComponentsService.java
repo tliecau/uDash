@@ -16,7 +16,7 @@ public class WidgetComponentsService {
     @LoadBalanced
     private RestTemplate restTemplate;
 
-    private static String SERVICE_URL = "http://AGGREGATOR-SERVICE/widgetComponents";
+    private static final String SERVICE_URL = "http://AGGREGATOR-SERVICE/widgetComponents";
 
     public WidgetComponentsService() {}
 

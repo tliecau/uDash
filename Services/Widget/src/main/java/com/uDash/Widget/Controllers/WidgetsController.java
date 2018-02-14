@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
@@ -17,21 +18,19 @@ public class WidgetsController {
     @Autowired
     private WidgetService widgetService;
 
-    @RequestMapping("/widgets/{messageId}")
+    @RequestMapping(method = GET, value = "/widgets/{widgetId}")
     WidgetDto getWidget(@PathVariable Long widgetId) {
-        WidgetDto messageById = widgetService.getWidgetById(widgetId);
-        return messageById;
+        return widgetService.getWidgetById(widgetId);
     }
 
-    @RequestMapping("/widgets")
+    @RequestMapping(method = GET, value = "/widgets")
     List<WidgetDto> getWidgets() {
-        List<WidgetDto> messagesById = widgetService.getWidgets();
-        return messagesById;
+        return widgetService.getWidgets();
     }
 
-    @RequestMapping(method = DELETE, value = "/widgets/{messageId}")
-    void deleteWidget(@PathVariable Long messageId) {
-        widgetService.deleteById(messageId);
+    @RequestMapping(method = DELETE, value = "/widgets/{widgetId}")
+    void deleteWidget(@PathVariable Long widgetId) {
+        widgetService.deleteById(widgetId);
     }
 
     @RequestMapping(method = POST, value = "/widgets")

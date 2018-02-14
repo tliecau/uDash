@@ -1,10 +1,36 @@
 group 'com.uDash'
 version '1.0.0'
 
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        // https://github.com/palantir/gradle-jacoco-coverage
+        classpath 'com.palantir:jacoco-coverage:0.4.0'
+    }
+}
+
 apply plugin: 'java'
+apply plugin: 'com.palantir.jacoco-full-report'
 
 sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
+}
+
+test { finalizedBy jacocoTestReport }
+jacocoTestReport {finalizedBy jacocoFullReport }
+
+subprojects {
+    apply plugin: "jacoco"
+    jacocoTestReport {
+        reports {
+            xml.enabled true
+            csv.enabled false
+            html.destination "${buildDir}/reports/coverage"
+        }
+    }
+    test { finalizedBy jacocoTestReport }
 }

@@ -16,7 +16,7 @@ public class WidgetService {
     @LoadBalanced
     private RestTemplate restTemplate;
 
-    private static String WIDGETS_URL = "http://AGGREGATOR-SERVICE/widgets";
+    private static final String WIDGETS_URL = "http://AGGREGATOR-SERVICE/widgets";
 
     public void addWidget(WidgetDto widget) {
     }

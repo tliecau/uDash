@@ -34,7 +34,8 @@ public class MessageControllerTest {
 
     @Test
     public void getMessage() throws Exception {
-        prepareMessage(Long.valueOf(1));
+        Long id = 1L;
+        prepareMessage(id);
 
         mockMvc.perform(get("/messages/1"))
                 .andExpect(status().isOk())
@@ -43,23 +44,24 @@ public class MessageControllerTest {
                 .andExpect(jsonPath("author", is("testAuthor")))
                 .andExpect(jsonPath("message", is("Lorem ipsum")));
 
-        verify(messageService, times(1)).getMessageById(Long.valueOf(1));
+        verify(messageService, times(1)).getMessageById(id);
         verifyNoMoreInteractions(messageService);
     }
 
     @Test
     public void getNotExistingMessage() throws Exception {
-        when(messageService.getMessageById(Long.valueOf(1))).thenThrow(new MessageNotFoundException());
+        Long messageId = 1L;
+        when(messageService.getMessageById(messageId)).thenThrow(new MessageNotFoundException());
         mockMvc.perform(get("/messages/1"))
                 .andExpect(status().isNotFound());
 
-        verify(messageService, times(1)).getMessageById(Long.valueOf(1));
+        verify(messageService, times(1)).getMessageById(messageId);
         verifyNoMoreInteractions(messageService);
     }
 
     @Test
     public void deleteMessage() throws Exception {
-        Long messageId = Long.valueOf(1);
+        Long messageId = 1L;
         prepareMessage(messageId);
 
         mockMvc.perform(delete("/messages/1"))
@@ -70,13 +72,13 @@ public class MessageControllerTest {
     
     @Test
     public void deleteNotExistingMessage() throws Exception {
-        prepareMessage(Long.valueOf(1));
-        doThrow(new MessageNotFoundException()).when(messageService).deleteById(Long.valueOf(2));
+        Long messageId = 2L;
+        doThrow(new MessageNotFoundException()).when(messageService).deleteById(messageId);
 
         mockMvc.perform(delete("/messages/2", 1L))
                 .andExpect(status().isNotFound());
 
-        verify(messageService, times(1)).deleteById(Long.valueOf(2));
+        verify(messageService, times(1)).deleteById(messageId);
     }
 
     private Message prepareMessage(Long id) throws MessageNotFoundException {
