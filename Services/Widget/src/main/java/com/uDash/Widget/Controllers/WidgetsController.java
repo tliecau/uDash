@@ -4,6 +4,7 @@ import com.uDash.Widget.Entities.WidgetDto;
 import com.uDash.Widget.Services.WidgetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,7 +35,7 @@ public class WidgetsController {
     }
 
     @RequestMapping(method = POST, value = "/widgets")
-    void addWidget(WidgetDto widgetDto) {
+    void addWidget(@RequestBody WidgetDto widgetDto) {
         widgetService.addWidget(widgetDto);
     }
 }

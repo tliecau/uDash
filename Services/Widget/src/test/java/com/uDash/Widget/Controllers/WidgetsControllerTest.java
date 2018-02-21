@@ -13,10 +13,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -54,14 +58,39 @@ public class WidgetsControllerTest {
 
     @Test
     public void getWidgets() throws Exception {
+        List<WidgetDto> widgets = new ArrayList<>();
+        widgets.add(prepareWidget(1L));
+        widgets.add(prepareWidget(2L));
+        when(widgetService.getWidgets()).thenReturn(widgets);
+
+        mockMvc.perform(get("/widgets"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].id", is(1)))
+                .andExpect(jsonPath("$[0].name", is("testName")))
+                .andExpect(jsonPath("$[1].id", is(2)))
+                .andExpect(jsonPath("$[1].name", is("testName")));
+
+        verify(widgetService, times(1)).getWidgets();
+        verifyNoMoreInteractions(widgetService);
     }
 
     @Test
     public void deleteWidget() throws Exception {
+        Long messageId = 1L;
+        prepareWidget(messageId);
+
+        mockMvc.perform(delete("/widgets/1"))
+                .andExpect(status().isOk());
+
+        verify(widgetService, times(1)).deleteById(messageId);
     }
 
     @Test
     public void addWidget() throws Exception {
+        mockMvc.perform(post("/widgets", "{\"name\" : \"test\" }")).andExpect(status().isOk());
+
+        verify(widgetService, times(1)).addWidget(any());
+        verifyNoMoreInteractions(widgetService);
     }
 
     private WidgetDto prepareWidget(Long id) {
