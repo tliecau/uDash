@@ -8,6 +8,7 @@ import java.util.List;
 @Data
 public class WidgetDto {
     private String name;
+    private Long id;
     private List<ComponentId> components;
     private TextComponentConfiguration textComponentConfiguration;
 }

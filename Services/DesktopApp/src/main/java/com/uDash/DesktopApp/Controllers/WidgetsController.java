@@ -5,6 +5,7 @@ import com.uDash.DesktopApp.Services.WidgetService;
 import com.uDash.Utils.Bussines.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,6 +14,7 @@ import javax.validation.Valid;
 
 import java.util.List;
 
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
@@ -30,7 +32,17 @@ public class WidgetsController {
     }
 
     @RequestMapping(method = GET, value = "/widgets")
-    public List<Widget> getWitdgets() {
+    public List<WidgetDto> getWitdgets() {
         return widgetService.getWidgets();
+    }
+
+    @RequestMapping(method = GET, value = "/widgets/{widgetId}") // TODO: here extra data
+    public WidgetDto getWitdgets(@PathVariable int widgetId) {
+        return widgetService.getWidget(widgetId);
+    }
+
+    @RequestMapping(method = DELETE, value = "/widgets/{widgetId}")
+    public void deleteWidget(@PathVariable int widgetId) {
+        widgetService.deleteWidget(widgetId);
     }
 }

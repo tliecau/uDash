@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,9 +25,17 @@ public class WidgetService {
         return response.getBody();
     }
 
-    public List<Widget> getWidgets() {
-        ResponseEntity<Widget[]> response = restTemplate.getForEntity(WIDGETS_URL, Widget[].class);
+    public List<WidgetDto> getWidgets() {
+        ResponseEntity<WidgetDto[]> response = restTemplate.getForEntity(WIDGETS_URL, WidgetDto[].class);
 
         return Arrays.asList(response.getBody());
+    }
+
+    public void deleteWidget(int widgetId) {
+        restTemplate.delete(WIDGETS_URL + "/" + widgetId);
+    }
+
+    public WidgetDto getWidget(int widgetId) {
+        return restTemplate.getForEntity(WIDGETS_URL + "/" + widgetId, WidgetDto.class).getBody();
     }
 }
