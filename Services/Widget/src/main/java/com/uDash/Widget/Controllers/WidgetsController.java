@@ -15,14 +15,14 @@ public class WidgetsController {
     @Autowired
     private WidgetService widgetService;
 
-    @RequestMapping(method = GET, value = "/widgets/{widgetId}")
-    WidgetDto getWidget(@PathVariable Long widgetId) {
-        return widgetService.getWidgetById(widgetId);
-    }
-
     @RequestMapping(method = GET, value = "/widgets")
     Iterable<WidgetDto> getWidgets() {
         return widgetService.getWidgets();
+    }
+
+    @RequestMapping(method = GET, value = "/widgets/{widgetId}")
+    WidgetDto getWidget(@PathVariable Long widgetId) {
+        return widgetService.getWidgetById(widgetId);
     }
 
     @RequestMapping(method = DELETE, value = "/widgets/{widgetId}")

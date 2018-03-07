@@ -5,6 +5,8 @@ import com.uDash.Widget.Entities.WidgetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class WidgetService {
     @Autowired
@@ -23,6 +25,9 @@ public class WidgetService {
     }
 
     public WidgetDto addWidget(WidgetDto widgetDto) {
+        if (widgetDto.getComponents() != null) {
+            widgetDto.getComponents().forEach(componentDto -> componentDto.setUid(UUID.randomUUID().toString()));
+        }
         return messageRepository.save(widgetDto);
     }
 

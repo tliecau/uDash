@@ -5,12 +5,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
-
-import static javax.persistence.CascadeType.MERGE;
-import static javax.persistence.CascadeType.PERSIST;
-import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Data
@@ -25,7 +20,7 @@ public class WidgetDto {
     private String name;
 
     @ElementCollection
-    @CollectionTable(name = "component_id_identifier", joinColumns = @JoinColumn(name = "widget_id"))
+    @CollectionTable(name = "component_identifier", joinColumns = @JoinColumn(name = "widget_id"))
     @OrderColumn(name = "component_order")
-    private Set<ComponentIdDto> componentId;
+    private Set<ComponentDto> components;
 }
