@@ -8,11 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
-import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
 public class WidgetsController {
@@ -25,13 +21,18 @@ public class WidgetsController {
     }
 
     @RequestMapping(method = GET, value = "/widgets")
-    List<WidgetDto> getWidgets() {
+    Iterable<WidgetDto> getWidgets() {
         return widgetService.getWidgets();
     }
 
     @RequestMapping(method = DELETE, value = "/widgets/{widgetId}")
     void deleteWidget(@PathVariable Long widgetId) {
         widgetService.deleteById(widgetId);
+    }
+
+    @RequestMapping(method = PATCH, value = "/widgets/{widgetId}")
+    void updateWidget(@PathVariable Long widgetId, @RequestBody WidgetDto widgetDto) {
+        widgetService.updateWidget(widgetId, widgetDto);
     }
 
     @RequestMapping(method = POST, value = "/widgets")

@@ -11,6 +11,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -18,9 +20,7 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -29,7 +29,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 public class WidgetsControllerTest {
-
     public static final MediaType APPLICATION_JSON_UTF8 = new MediaType(MediaType.APPLICATION_JSON.getType(),
             MediaType.APPLICATION_JSON.getSubtype(),
             Charset.forName("utf8"));
@@ -87,9 +86,30 @@ public class WidgetsControllerTest {
 
     @Test
     public void addWidget() throws Exception {
-        mockMvc.perform(post("/widgets", "{\"name\" : \"test\" }")).andExpect(status().isOk());
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post("/widgets");
+        request.contentType(APPLICATION_JSON_UTF8);
+        request.content("{\"name\" : \"test\" }");
+
+        mockMvc.perform(request)
+                .andExpect(status().isOk());
 
         verify(widgetService, times(1)).addWidget(any());
+        verifyNoMoreInteractions(widgetService);
+    }
+
+    @Test
+    public void updateWidget() throws Exception {
+        Long messageId = 1L;
+        prepareWidget(messageId);
+
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.patch("/widgets/1");
+        request.contentType(APPLICATION_JSON_UTF8);
+        request.content("{\"name\" : \"test2\" }");
+
+        mockMvc.perform(request)
+                .andExpect(status().isOk());
+
+        verify(widgetService, times(1)).updateWidget(any(), any());
         verifyNoMoreInteractions(widgetService);
     }
 

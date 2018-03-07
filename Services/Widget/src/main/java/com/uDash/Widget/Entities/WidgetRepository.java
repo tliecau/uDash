@@ -1,7 +1,7 @@
 package com.uDash.Widget.Entities;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 
-public interface WidgetRepository  extends JpaRepository<WidgetDto, Long> {
+public interface WidgetRepository extends CrudRepository<WidgetDto, Long> {
     WidgetDto getById(Long messageId);
 }

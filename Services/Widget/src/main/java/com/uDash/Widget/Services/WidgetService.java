@@ -5,8 +5,6 @@ import com.uDash.Widget.Entities.WidgetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class WidgetService {
     @Autowired
@@ -16,16 +14,21 @@ public class WidgetService {
         return messageRepository.getById(widgetId);
     }
 
-    public List<WidgetDto> getWidgets() {
-        List<WidgetDto> widgets = messageRepository.findAll();
-        return widgets;
+    public Iterable<WidgetDto> getWidgets() {
+        return messageRepository.findAll();
     }
 
     public void deleteById(Long messageId) {
         messageRepository.delete(messageId);
     }
 
-    public void addWidget(WidgetDto widgetDto) {
-        messageRepository.save(widgetDto);
+    public WidgetDto addWidget(WidgetDto widgetDto) {
+        return messageRepository.save(widgetDto);
+    }
+
+    public WidgetDto updateWidget(Long widgetId, WidgetDto widgetDto) {
+        WidgetDto widget = messageRepository.getById(widgetId);
+        widgetDto.setId(widget.getId());
+        return messageRepository.save(widgetDto);
     }
 }
