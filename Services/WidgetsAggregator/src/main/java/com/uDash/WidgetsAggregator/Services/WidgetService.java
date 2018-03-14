@@ -10,8 +10,9 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class WidgetService {
@@ -27,22 +28,41 @@ public class WidgetService {
     public List<WidgetComponent> collectWidgetComponents() {
         List<String> services = this.discoveryClient.getServices();
         List<String> widgetComponentsUris = getWidgetComponentsUris(services);
-        List<WidgetComponent> widgetComponentFromUri = getWidgetComponentFromUri(widgetComponentsUris);
+        List<WidgetComponent> widgetComponent = getWidgetComponentFromUri(widgetComponentsUris);
+        mapWithEntity(widgetComponent);
 
-        widgetComponentFromUri.stream().forEach(widget -> {
-            WidgetDto widgetDto = new WidgetDto();
-            widgetDto.setName(widget.getName());
-            widgetDto.setUuid(UUID.randomUUID().toString());
-            widgetRepository.save(widgetDto);
-        } );
+        return widgetComponent;
+    }
 
-        //TODO: add only new into db
-        return widgetComponentFromUri;
+    private void mapWithEntity(List<WidgetComponent> widgetComponent) {
+        widgetComponent.forEach(widget -> {
+            WidgetDto widgetEntity = getOrCreateEntity(widget);
+            //TODO: ADD MAPPER
+            widget.setId(widgetEntity.getUuid());
+        });
+    }
+
+    private WidgetDto getOrCreateEntity(WidgetComponent widget) {
+        String name = widget.getName();
+        List<WidgetDto> widgets = widgetRepository.findByName(name);
+        Optional<WidgetDto> widgetEntity = widgets.stream().findFirst();
+        if (!widgetEntity.isPresent()) {
+            widgetEntity = Optional.of(addNew(name));
+        }
+        return widgetEntity.get();
+    }
+
+    private WidgetDto addNew(String name) {
+        WidgetDto widgetDto = new WidgetDto();
+        widgetDto.setName(name);
+        widgetDto.setUuid(UUID.randomUUID());
+        widgetRepository.save(widgetDto);
+        return widgetDto;
     }
 
     private List<WidgetComponent> getWidgetComponentFromUri(List<String> widgetComponentsUris) {
         List<WidgetComponent> widgetComponents = new ArrayList<>();
-        for (String widgetUri: widgetComponentsUris) {
+        for (String widgetUri : widgetComponentsUris) {
             try {
                 widgetComponents.add(getWidgetComponentFromUri(widgetUri));
             } catch (WidgetNotFoundException e) {

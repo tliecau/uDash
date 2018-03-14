@@ -4,11 +4,12 @@ import com.uDash.DesktopApp.Dto.Configurations.TextComponentConfiguration;
 import lombok.Data;
 
 import java.util.List;
+import java.util.UUID;
 
 @Data
 public class WidgetDto {
     private String name;
     private Long id;
-    private List<ComponentId> components;
+    private List<UUID> components;
     private TextComponentConfiguration textComponentConfiguration;
 }

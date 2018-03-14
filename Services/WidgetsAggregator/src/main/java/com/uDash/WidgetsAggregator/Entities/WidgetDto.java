@@ -3,9 +3,10 @@ package com.uDash.WidgetsAggregator.Entities;
 import lombok.Data;
 import org.hibernate.validator.constraints.NotBlank;
 import javax.persistence.*;
+import java.util.UUID;
 
 @Data
-@Table(name = "registratedWidget")
+@Table(name = "registeredWidget")
 @Entity
 public class WidgetDto {
     @Id
@@ -15,6 +16,6 @@ public class WidgetDto {
     @NotBlank
     private String name;
 
-    @NotBlank
-    private String uuid;
+    //TODO: add @notBlank validator
+    private UUID uuid;
 }
