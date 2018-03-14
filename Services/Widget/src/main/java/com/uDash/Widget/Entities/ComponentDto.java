@@ -5,13 +5,14 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import java.util.UUID;
 
 @Data
 @Embeddable
 public class ComponentDto {
-    @NotBlank
+    // TODO: add @notBlank validator
     @Column(name = "component_id")
-    private int componentId;
+    private UUID componentId;
     private String name;
     private String uid;
 }

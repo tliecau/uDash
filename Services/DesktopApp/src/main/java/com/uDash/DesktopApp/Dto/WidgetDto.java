@@ -10,6 +10,6 @@ import java.util.UUID;
 public class WidgetDto {
     private String name;
     private Long id;
-    private List<UUID> components;
+    private List<ComponentDto> components;
     private TextComponentConfiguration textComponentConfiguration;
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 public class ServiceCollector {
@@ -33,5 +34,10 @@ public class ServiceCollector {
     @RequestMapping("/widgetComponents")
     public List<WidgetComponent> getWidgets() {
         return widgetService.collectWidgetComponents();
+    }
+
+    @RequestMapping("/widgetComponents/{id}")
+    public WidgetComponent getWidget(@PathVariable UUID id) {
+        return widgetService.getWidgetComponentById(id);
     }
 }

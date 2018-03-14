@@ -91,4 +91,13 @@ public class WidgetService {
                 .map(serviceInstance -> serviceInstance.getUri().toString())
                 .collect(Collectors.toList());
     }
+
+    public WidgetComponent getWidgetComponentById(UUID id) {
+
+        List<WidgetComponent> widgetComponents = collectWidgetComponents();
+        return widgetComponents
+                .stream()
+                .filter(widgetComponent -> widgetComponent.getId().equals(id))
+                .findFirst().get();
+    }
 }

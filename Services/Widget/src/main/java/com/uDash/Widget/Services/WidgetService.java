@@ -25,6 +25,7 @@ public class WidgetService {
     }
 
     public WidgetDto addWidget(WidgetDto widgetDto) {
+        // TODO : add validation if added component is avaiable
         if (widgetDto.getComponents() != null) {
             widgetDto.getComponents().forEach(componentDto -> componentDto.setUid(UUID.randomUUID().toString()));
         }
