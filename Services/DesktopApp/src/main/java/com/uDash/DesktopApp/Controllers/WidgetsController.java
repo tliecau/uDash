@@ -19,30 +19,21 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/widgets")
 public class WidgetsController {
 
     @Autowired
     WidgetService widgetService;
 
-    @RequestMapping(method = POST, value = "/widgets")
+    @RequestMapping(method = POST, value = "")
     public ResponseEntity addWitdget(@RequestBody @Valid WidgetDto widget) {
         widgetService.addWidget(widget);
         return ResponseEntity.ok(null);
     }
 
-    @RequestMapping(method = GET, value = "/widgets")
+    @RequestMapping(method = GET, value = "")
     public List<WidgetDto> getWitdgets() {
         return widgetService.getWidgets();
     }
 
-    @RequestMapping(method = GET, value = "/widgets/{widgetId}") // TODO: here extra data
-    public WidgetDto getWitdgets(@PathVariable int widgetId) {
-        return widgetService.getWidget(widgetId);
-    }
-
-    @RequestMapping(method = DELETE, value = "/widgets/{widgetId}")
-    public void deleteWidget(@PathVariable int widgetId) {
-        widgetService.deleteWidget(widgetId);
-    }
-}
+ }

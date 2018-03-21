@@ -11,17 +11,18 @@ import org.springframework.web.bind.annotation.RestController;
 import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 
 @RestController
+@RequestMapping("/messages/")
 public class MessageController {
     @Autowired
     private MessageService messageService;
 
-    @RequestMapping("/messages/{messageId}")
+    @RequestMapping("/{messageId}")
     Message getMessage(@PathVariable Long messageId) throws MessageNotFoundException {
         Message messageById = messageService.getMessageById(messageId);
         return messageById;
     }
 
-    @RequestMapping(method = DELETE, value = "/messages/{messageId}")
+    @RequestMapping(method = DELETE, value = "/{messageId}")
     void deleteMessage(@PathVariable Long messageId) throws MessageNotFoundException {
         messageService.deleteById(messageId);
     }

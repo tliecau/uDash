@@ -12,6 +12,7 @@ public class WidgetInfoController {
         widgetComponent.setName("Text Service");
         widgetComponent.setDescription("Place text or text collection in your widgetComponent.");
         widgetComponent.setEntryPoint("/messages");
+        widgetComponent.setApplicationName("message-service");
         return widgetComponent;
     }
 }

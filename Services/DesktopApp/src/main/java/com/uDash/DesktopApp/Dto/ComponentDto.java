@@ -8,5 +8,5 @@ import java.util.UUID;
 public class ComponentDto {
     private UUID componentId;
     private String name;
-    private String uid;
+    private UUID uid;
 }
